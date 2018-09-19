@@ -21,7 +21,6 @@ setup.noiseSeeds = setup.noiseSeed + (1:setup.nrDatasets);
 % data storage
 res.err_mle 	= zeros(setup.nrDatasets, KN, 1, 1);
 res.time_mle 	= zeros(setup.nrDatasets, KN, 1, 1);
-res.alg_mle 	= cell(setup.nrDatasets, KN);
 res.err_cnce    = zeros(setup.nrDatasets, KN, Kkappa, setup.mIterMax);
 res.epsilon_cnce = zeros(setup.nrDatasets, KN, Kkappa, setup.mIterMax);
 res.loss_cnce 	= zeros(setup.nrDatasets, KN, Kkappa, setup.mIterMax);
@@ -51,29 +50,11 @@ for dsnr = 1:setup.nrDatasets
 		%------------------------------------o---------------------------------------
 		% Calcluate MLE
 		tic
-		%thetaMLE = getMLE(X, thetaInitCNCE, setup.modelName);
-% 		if (strcmp(setup.modelName, 'ICA'))
-%             [thetaMLE_fast, fastLoss, auxFast] = ica_fast(X, thetaInitCNCE);
-%             [thetaMLE_mle ] = ica_mle( X, thetaInitCNCE);
-%             res.time_mle(dsnr, kn, 1, 1) = toc;
-% 
-%             err_mle_fast = calculateError( thetaTrueCNCE, thetaMLE_fast,...
-%                 setup.modelName);
-%             err_mle_mle = calculateError( thetaTrueCNCE, thetaMLE_mle,...
-%                 setup.modelName);
-%             if (err_mle_fast < err_mle_mle)
-%                 res.err_mle(dsnr, kn, 1, 1) = err_mle_fast;
-%                 res.alg_mle{dsnr, kn} = auxFast.optFun;
-%             else
-%                 res.err_mle(dsnr, kn, 1, 1) = err_mle_mle;
-%                 res.alg_mle{dsnr, kn} = 'mle_TR';
-%             end
-% 		else
-			thetaMLE = getMLE(X, thetaInitCNCE, setup.modelName);
-			res.time_mle(dsnr, kn, 1, 1) = toc;
-			res.err_mle(dsnr, kn, 1, 1) = calculateError(thetaTrueCNCE,...
-                thetaMLE, setup.modelName);
-% 		end
+        thetaMLE = getMLE(X, thetaInitCNCE, setup.modelName);
+        res.time_mle(dsnr, kn, 1, 1) = toc;
+        res.err_mle(dsnr, kn, 1, 1) = calculateError(thetaTrueCNCE,...
+            thetaMLE, setup.modelName);
+
 		%------------------------------------o---------------------------------------
 		% create a base for epsilon
 		epsilonBase = gEpsilonBaseFun( X );
@@ -85,21 +66,21 @@ for dsnr = 1:setup.nrDatasets
 			[theta, aux] = cnce(X, setup.theModelCNCE, thetaInitCNCE, ...
                 epsilonBase, noiseBase(1:N,:,1:kappa), setup.noiseFunCNCE, ...
                 setup.mIterMax - 1, setup.optCNCE);
-			res.time_cnce		(dsnr, kn, kkap, :) 	= aux.time;
-			res.err_cnce		(dsnr, kn, kkap, :) 	= ...
+			res.time_cnce		(dsnr, kn, kkap, :) = aux.time;
+			res.err_cnce		(dsnr, kn, kkap, :) = ...
 				calculateError( thetaTrueCNCE, theta, setup.modelName);
-			res.epsilon_cnce	(dsnr, kn, kkap, :) 	= aux.epsilon;
-			res.loss_cnce		(dsnr, kn, kkap, :) 	= aux.loss;
-			res.mIter_cnce	(dsnr, kn, kkap, 1) 	= aux.mIter;
+			res.epsilon_cnce	(dsnr, kn, kkap, :) = aux.epsilon;
+			res.loss_cnce		(dsnr, kn, kkap, :) = aux.loss;
+			res.mIter_cnce	(dsnr, kn, kkap, 1) = aux.mIter;
 			
             % NCE
 			[theta, aux] = nce(X, setup.theModelNCE, thetaInitNCE, ...
                 setup.noiseFunNCE, kappa, setup.optNCE);
-			res.time_nce	(dsnr, kn, kkap, 1) 	= aux.time;
-			res.err_nce	(dsnr, kn, kkap, 1) 	= ...
+			res.time_nce	(dsnr, kn, kkap, 1) = aux.time;
+			res.err_nce	(dsnr, kn, kkap, 1) = ...
 				calculateError(thetaTrueNCE(1:end-1), theta(1:end -1),...
                 setup.modelName); %CNCE datatype but remove c from thetaNCE
-			res.loss_nce	(dsnr, kn, kkap, 1) 	= aux.loss;
+			res.loss_nce(dsnr, kn, kkap, 1) = aux.loss;
 		end
 		fprintf('\n')
 	end

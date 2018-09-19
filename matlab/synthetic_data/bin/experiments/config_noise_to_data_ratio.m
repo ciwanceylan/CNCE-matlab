@@ -10,7 +10,8 @@ setup.r = 240;
 
 % Experiment setup
 setup.nrDatasets = 100; % No. different parameter sets to use
-setup.Nvec = [500, 5000]; % Number of datasamples to test
+setup.Nvec = [500]; % Faster than using N=5000, qualitative result the same
+% setup.Nvec = [5000]; % Value of N used in the ICML paper
 setup.kappaVec = [2, 4, 6, 8, 10, 20, 40, 60]; % Noise-to-data ratio
 
 % Model setup
@@ -30,6 +31,7 @@ end
 
 % Optimisation setup
 setup.optNCE.alg = 'fminunc';
+% setup.optNCE.alg = 'all';  % Slow, but use to avoid issues with NCE
 setup.optNCE.maxIter = 6000;
 setup.optNCE.verbose = 0;
 setup.optCNCE = setup.optNCE;

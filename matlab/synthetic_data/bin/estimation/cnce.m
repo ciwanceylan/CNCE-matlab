@@ -36,7 +36,6 @@ else
 end
 metaPrecision = 1e-4;  % Stop if relative change in parameter values
                         % fall below this value
-[~, ~, kappa] 	= size(noiseBase);
 M 	= length(thetaInit);
 
 % Auxiliary measurements

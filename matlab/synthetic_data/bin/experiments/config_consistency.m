@@ -10,7 +10,8 @@ setup.r = 523;
 
 % Experiment setup
 setup.nrDatasets = 100; % No. different parameter sets to use
-setup.Nvec = [100, 500, 1000, 5000, 10000, 20000]; % Number of datasamples to test
+setup.Nvec = [100, 500, 1000, 5000]; % Number of datasamples to test
+% setup.Nvec = [100, 500, 1000, 5000, 10000, 20000]; % N use in ICML paper
 setup.kappaVec = [2, 6, 10, 20]; % Noise-to-data ratio
 
 % Model setup

@@ -1,6 +1,8 @@
 
 matlab/synthetic_data/data/*
 matlab/synthetic_data/results/*
+matlab/natural_images/data/*
+matlab/natural_images/results/*
 
 # Windows default autosave extension
 *.asv

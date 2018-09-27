@@ -38,16 +38,28 @@ in the config files to `'all'`.
 - Use matlab/natural_images as the "Current Folder" in Matlab
 - Run `setPath_natural_images` to set the code path and add global variables specifying
 data and results folder.
+- In bin/training_scripts three scripts which trains the model is found:
+    - `run_full_CNCE_training` trains the full model (all four layers) with CNCE
+    using 32x32 patches and 600 PCA dimensions.
+    This took me between 1 to 2 days on my CPU (not that no GPU training code is 
+    included). 
+    - `run_small_training` also trains the full model, but using 25x25 patches and
+    160 PCA dimensions. It is therefore faster and can be trained in a few hours.
+    - `run_partial_CNCE_NCE_training` trains the first and second layer using 
+    32x32 patches and 600 PCA dimensions, but with fewer neurons. This was required
+    to train this model using NCE as the optimisers had issues when more neurons 
+    where used. This code is mainly used to obtain checkpoints from which the feature
+    comparision seen in Figure 2 to 13 in the Supplementary Material can be generated
+    (using `make_CNCE_NCE_gif` in the "visualisation" folder).
+- The data will be downloaded automatically  at the start of training.
+- The code will also generate the PCA transformation matricies and store them locally.
+- After training the results can be visualised using `plot_receptive_fields` in the 
+folder "visualisation". Note that the space-orientation receptive field visualisations 
+for layer 3 and 4 can be slow.
 
-
-- In the subfolder
-For the synthetic dataset where the ground truth is available the results are not quantitatively exactly the same as those of the ICML paper
-as the seed used to generate the ground truth parameters was lost. 
-Furthermore, the currently configuration only reproduces the results partially to speed up the computations.
-The full result can be obtained by modifiying the config files.
-In particular the optimisation option 'opt.alg' should be set to 'all'.
-With is option both Matlab's 'funminunc' and the 'minimize.m' optimisation is used and the estimate with the lowest lost is reported.
-This was important for NCE which seemed to be senitive to the optimiser (sometimes matlabs 'funmiunc' worked failed and sometimes the 'minimize.m' failed. )
-
+**NOTE:** As the original 11 Van-Hateren image used for training cannot be downloaded
+seperately, the automatic download instead downloads 11 random images from the same 
+dataset. If you want to download the whole dataset yourself you can find it here:
+[Van Hateren images](http://pirsquared.org/research/vhatdb/full/).
 
 

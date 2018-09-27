@@ -5,7 +5,10 @@ This repo contains the code for reproducing the results presented in the ICML 20
 paper _Conditional Noise-Contrastive Estimation of Unnormalised Models_.
 The code is implemented in Matlab and tested for version 2018a but should work 
 for older versions as well. The code for the synthetic data experiments and the 
-natural image experiments lie in seperate folders. 
+natural image experiments lie in seperate folders.
+
+Any publication that discloses findings arising from using this source code must 
+cite “Conditional Noise-Contrastive Estimation of Unnormalised Models", PMLR 80:726-734 (2018)
 
 ## Usage
 

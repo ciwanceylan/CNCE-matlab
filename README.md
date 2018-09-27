@@ -1,8 +1,13 @@
-# CNCE code used for ICML 2018 results
+# Code for Conditional Noise-Contrastive Estimation of Unnormalised Models, presented at ICML 2018
+[paper](https://arxiv.org/abs/1806.03664 "Conditional Noise-Contrastive Estimation of Unnormalised Models, ICML 2018")
 
-This code reproduces the results of the ICML 2018 paper "Conditional Noise-Contrastive Estimation". 
+This repo contains the code for reproducing the results presented in the ICML 2018 
+paper _Conditional Noise-Contrastive Estimation of Unnormalised Models_.
+The code is implemented in Matlab and tested for version 2018a but should work 
+for older versions as well. The code for the synthetic data experiments and the 
+natural image experiments lie in seperate folders. 
 
-Posible Python implementation might appear in the future. 
+## Usage
 
 For the synthetic dataset where the ground truth is available the results are not quantitatively exactly the same as those of the ICML paper
 as the seed used to generate the ground truth parameters was lost. 
